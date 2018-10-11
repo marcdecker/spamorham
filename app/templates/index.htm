@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+	<title>Basic Example of Flask Application with Watson Studio Deployment</title>
+	<link rel="stylesheet" type="text/css" href="static/default.css">
+
+	<link rel="stylesheet" href="static/Skeleton-2.0.4/css/normalize.css">
+	<link rel="stylesheet" href="static/Skeleton-2.0.4/css/skeleton.css">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="one-half column">
+				<h4> Example of form to submit values (jQuery) </h4>
+
+				<form id="datainputform" action="/score", method="POST">
+					Text:<br>
+					<textarea name="spaorham">Enter text here...</textarea><br>
+
+					<input type="submit" value="Submit">
+				</form>
+
+			</div>
+			<div class="one-half column phones">
+				<h4> Response of server </h4>
+				<div id="server-response">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript">
+		var frm = $('#datainputform');
+
+		frm.submit(function (e) {
+
+			e.preventDefault();
+
+			$.ajax({
+				type: frm.attr('method'),
+				url: frm.attr('action'),
+				data: frm.serialize(),
+				success: function (data) {
+					console.log('Submission was successful.');
+					console.log(data);
+					$("#server-response").html(JSON.stringify(data));
+				},
+				error: function (data) {
+					console.log('An error occurred.');
+					console.log(data);
+				},
+			});
+		});
+	</script>
+</body>
+
